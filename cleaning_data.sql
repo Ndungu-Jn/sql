@@ -101,7 +101,21 @@ SELECT DISTINCT country, TRIM(TRAILING '.' FROM country) -- SPECIFIED THAT WE WA
 FROM layoffs_staging2
 ORDER BY 1;
 
+UPDATE layoffs_staging2
+SET country = TRIM(TRAILING '.' FROM country)
+WHERE country LIKE "United States%";
 
+-- Changing the date column
+SELECT `date`
+-- STR_TO_DATE(`date`, '%m/%d/%Y')  -- that is the format. converting from string to date, and then putting it into a certian format.
+FROM layoffs_staging2;
+
+-- always remember to update.
+UPDATE layoffs_staging2
+SET `date` = STR_TO_DATE(`date`, '%m/%d/%Y');
+
+ALTER TABLE layoffs_staging2    -- ALSO REMEMBER TO NEVER DO THIS ON THE MAIN TABLE
+MODIFY COLUMN `date` DATE;
 
 
 
