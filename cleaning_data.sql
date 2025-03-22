@@ -80,6 +80,27 @@ WHERE row_num > 1;
 SELECT *
 FROM layoffs_staging2;
 
+-- end of removing duplicates
+-- Standardizing data  -- finding issues in the data and fixing it
+
+SELECT company, (TRIM(company))  -- REMOVING THE WHITE SPACES BEFORE THE WORDS IN COMPANY COLUMN AND AFTER.
+FROM layoffs_staging2;
+
+UPDATE layoffs_staging2
+SET company = TRIM(company);
+
+SELECT DISTINCT industry
+FROM layoffs_staging2;
+
+
+UPDATE layoffs_staging2
+SET industry = 'Crypto'
+WHERE industry LIKE 'Crypto%';
+
+SELECT DISTINCT country, TRIM(TRAILING '.' FROM country) -- SPECIFIED THAT WE WANT TO TRIM A SPECIFIC THING AND FOR THIS SCENARIO ITS A "."
+FROM layoffs_staging2
+ORDER BY 1;
+
 
 
 
